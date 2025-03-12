@@ -11,18 +11,17 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: url('background.png') no-repeat center center;
+            background: url('background.png') no-repeat center center fixed;
             background-size: cover;
             font-family: Arial, sans-serif;
             text-align: center;
         }
 
-        .quiz-container, .end-screen {
-            background: rgba(255, 255, 255, 0.9);
+        .container {
+            background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
         }
 
         .image-frame {
@@ -33,8 +32,8 @@
         }
 
         img {
-            width: 900px; /* Skaluje obraz do 80% szerokości kontenera */
-            height: auto;
+            max-width: 90%;
+            max-height: 500px;
         }
 
         .buttons button, .restart-button {
@@ -43,20 +42,18 @@
             font-size: 16px;
             cursor: pointer;
         }
-
-        .score {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .end-screen {
-            text-align: center;
-        }
     </style>
 </head>
 <body>
-    <div class="quiz-container" id="quiz-container">
+    <div class="container" id="start-screen">
+        <h2>Podaj swoje dane</h2>
+        <input type="text" id="name" placeholder="Imię" required><br>
+        <input type="number" id="age" placeholder="Wiek" required><br>
+        <input type="text" id="school" placeholder="Szkoła (opcjonalnie)"><br>
+        <button onclick="startQuiz()">Rozpocznij quiz</button>
+    </div>
+
+    <div class="container" id="quiz-container" style="display: none;">
         <h2 id="question"></h2>
         <div class="image-frame">
             <img id="quiz-image" src="" alt="Quiz Image">
@@ -67,12 +64,17 @@
         </div>
         <div class="score">Wynik: <span id="score">0</span></div>
     </div>
-    <div class="end-screen" id="end-screen">
+
+    <div class="container" id="end-screen" style="display: none;">
         <h2>Koniec quizu!</h2>
         <p>Twój wynik: <span id="final-score">0</span></p>
-        <button class="restart-button" onclick="restartQuiz()">Zagraj ponownie</button>
     </div>
+
     <script>
+        let userData = {};
+        let score = 0;
+        let usedQuestions = [];
+
         const questions = [
             { text: "Czy jest to oszustwo?", image: "sites/allegro-fake.png", answer: true },
             { text: "Czy jest to oszustwo?", image: "sites/binance_sms.png", answer: true },
@@ -89,14 +91,21 @@
             { text: "Czy jest to oszustwo?", image: "sites/legit_PP.webp", answer: false }
         ];
 
-        let score = 0;
-        let usedQuestions = [];
+        function startQuiz() {
+            userData.name = document.getElementById("name").value;
+            userData.age = document.getElementById("age").value;
+            userData.school = document.getElementById("school").value;
+            document.getElementById("start-screen").style.display = "none";
+            document.getElementById("quiz-container").style.display = "block";
+            loadQuestion();
+        }
 
         function getRandomQuestion() {
             if (usedQuestions.length === questions.length) {
                 document.getElementById("quiz-container").style.display = "none";
                 document.getElementById("end-screen").style.display = "block";
                 document.getElementById("final-score").textContent = score;
+                saveResults();
                 return null;
             }
             let randomIndex;
@@ -136,10 +145,24 @@
             loadQuestion();
         }
 
-        window.onload = function () {
-            document.getElementById("quiz-container").style.display = "block";
-            loadQuestion();
-        };
+        function saveResults() {
+            userData.score = score;
+
+            fetch("http://localhost:5000/save_result", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Dane zapisane:", data);
+                    restartQuiz();
+                })
+                .catch(error => console.error("Błąd zapisu:", error));
+        }
+
     </script>
 </body>
 </html>
