@@ -68,6 +68,9 @@
     <div class="container" id="end-screen" style="display: none;">
         <h2>Koniec quizu!</h2>
         <p>Twój wynik: <span id="final-score">0</span></p>
+        <p>Czy chcesz zagrać ponownie?</p>
+        <button onclick="restartQuiz()">Tak</button>
+        <button onclick="returnToForm()">Nie</button>
     </div>
 
     <script>
@@ -140,10 +143,16 @@
             score = 0;
             usedQuestions = [];
             document.getElementById("score").textContent = score;
-            document.getElementById("quiz-container").style.display = "block";
+            document.getElementById("final-score").textContent = "0";
+
+            // Ukrycie ekranu końcowego i pokazanie ekranu quizu
             document.getElementById("end-screen").style.display = "none";
+            document.getElementById("quiz-container").style.display = "block";
+
+            // Załadowanie nowego pytania
             loadQuestion();
         }
+
 
         function saveResults() {
             userData.score = score;
@@ -158,9 +167,14 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log("Dane zapisane:", data);
-                    restartQuiz();
                 })
                 .catch(error => console.error("Błąd zapisu:", error));
+        }
+
+        function returnToForm() {
+            // Ukrywa ekran końcowy i pokazuje formularz
+            document.getElementById("end-screen").style.display = "none";
+            document.getElementById("start-screen").style.display = "block";
         }
 
     </script>
