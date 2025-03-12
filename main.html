@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz phishingowy</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('background.png') no-repeat center center;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .quiz-container, .end-screen {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .image-frame {
+            border: 5px solid black;
+            padding: 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        img {
+            width: 900px; /* Skaluje obraz do 80% szerokości kontenera */
+            height: auto;
+        }
+
+        .buttons button, .restart-button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .score {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .end-screen {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container" id="quiz-container">
+        <h2 id="question"></h2>
+        <div class="image-frame">
+            <img id="quiz-image" src="" alt="Quiz Image">
+        </div>
+        <div class="buttons">
+            <button onclick="answer(true)">TAK</button>
+            <button onclick="answer(false)">NIE</button>
+        </div>
+        <div class="score">Wynik: <span id="score">0</span></div>
+    </div>
+    <div class="end-screen" id="end-screen">
+        <h2>Koniec quizu!</h2>
+        <p>Twój wynik: <span id="final-score">0</span></p>
+        <button class="restart-button" onclick="restartQuiz()">Zagraj ponownie</button>
+    </div>
+    <script>
+        const questions = [
+            { text: "Czy jest to oszustwo?", image: "sites/allegro-fake.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/binance_sms.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/ipko_legit.png", answer: false },
+            { text: "Czy jest to oszustwo?", image: "sites/ipko1.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/ipko2.jpg", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/phishing-sms-doplata.jpeg", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/phishing-sms-pieniadze.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/PP.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/steam_scam.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/steam_scam.webp", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/xiaomi_scam.png", answer: true },
+            { text: "Czy jest to oszustwo?", image: "sites/steam_legit.png", answer: false },
+            { text: "Czy jest to oszustwo?", image: "sites/legit_PP.webp", answer: false }
+        ];
+
+        let score = 0;
+        let usedQuestions = [];
+
+        function getRandomQuestion() {
+            if (usedQuestions.length === questions.length) {
+                document.getElementById("quiz-container").style.display = "none";
+                document.getElementById("end-screen").style.display = "block";
+                document.getElementById("final-score").textContent = score;
+                return null;
+            }
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * questions.length);
+            } while (usedQuestions.includes(randomIndex));
+            usedQuestions.push(randomIndex);
+            return questions[randomIndex];
+        }
+
+        function loadQuestion() {
+            const questionData = getRandomQuestion();
+            if (!questionData) return;
+            document.getElementById("question").textContent = questionData.text;
+            document.getElementById("quiz-image").src = questionData.image;
+            document.getElementById("quiz-image").dataset.answer = questionData.answer;
+        }
+
+        function answer(response) {
+            const correctAnswer = document.getElementById("quiz-image").dataset.answer === "true";
+            if (response === correctAnswer) {
+                score++;
+                alert("Dobra odpowiedź!");
+            } else {
+                alert("Zła odpowiedź!");
+            }
+            document.getElementById("score").textContent = score;
+            loadQuestion();
+        }
+
+        function restartQuiz() {
+            score = 0;
+            usedQuestions = [];
+            document.getElementById("score").textContent = score;
+            document.getElementById("quiz-container").style.display = "block";
+            document.getElementById("end-screen").style.display = "none";
+            loadQuestion();
+        }
+
+        window.onload = function () {
+            document.getElementById("quiz-container").style.display = "block";
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
