@@ -4,53 +4,5 @@
         "age": "21",
         "school": "canyoudosomeforme",
         "score": 13
-    },
-    {
-        "name": "Matełuszek",
-        "age": "8",
-        "school": "ZSK",
-        "score": 5
-    },
-    {
-        "name": "TEST",
-        "age": "25",
-        "school": "TEST",
-        "score": 8
-    },
-    {
-        "name": "test",
-        "age": "66",
-        "school": "test2",
-        "score": 13
-    },
-    {
-        "name": "21",
-        "age": "21",
-        "school": "21",
-        "score": 10
-    },
-    {
-        "name": "21",
-        "age": "21",
-        "school": "21",
-        "score": 10
-    },
-    {
-        "name": "213",
-        "age": "321",
-        "school": "231312",
-        "score": 10
-    },
-    {
-        "name": "Tomuś",
-        "age": "21",
-        "school": "TEST",
-        "score": 13
-    },
-    {
-        "name": "Tomuś",
-        "age": "21",
-        "school": "TEST",
-        "score": 11
     }
 ]

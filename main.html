@@ -73,6 +73,11 @@
         <button onclick="returnToForm()">Nie</button>
     </div>
 
+    <div class="container" id="ranking">
+        <h2>🏆 Ranking najlepszych graczy</h2>
+        <ol id="ranking-list"></ol>
+    </div>
+
     <script>
         let userData = {};
         let score = 0;
@@ -177,6 +182,28 @@
             document.getElementById("start-screen").style.display = "block";
         }
 
+        function fetchRanking() {
+            fetch("http://localhost:5000/get_top_players") // Endpoint Flask
+                .then(response => response.json())
+                .then(data => {
+                    const rankingList = document.getElementById("ranking-list");
+                    rankingList.innerHTML = ""; // Wyczyść poprzedni ranking
+
+                    if (data.length === 0) {
+                        rankingList.innerHTML = "<li>Brak danych</li>";
+                        return;
+                    }
+
+                    data.forEach((player, index) => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `${index + 1}. ${player.name} - ${player.score} pkt`;
+                        rankingList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error("Błąd pobierania rankingu:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchRanking);
     </script>
 </body>
 </html>
