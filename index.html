@@ -63,6 +63,7 @@
             <button onclick="answer(false)">NIE</button>
         </div>
         <div class="score">Wynik: <span id="score">0</span></div>
+        <p id="feedback" style="font-weight: bold; font-size: 18px; margin-top: 10px;"></p>
     </div>
 
     <div class="container" id="end-screen" style="display: none;">
@@ -134,14 +135,24 @@
 
         function answer(response) {
             const correctAnswer = document.getElementById("quiz-image").dataset.answer === "true";
+            const feedbackElement = document.getElementById("feedback");
+        
             if (response === correctAnswer) {
                 score++;
-                alert("Dobra odpowiedź!");
+                feedbackElement.textContent = "✅ Dobra odpowiedź!";
+                feedbackElement.style.color = "green";
             } else {
-                alert("Zła odpowiedź!");
+                feedbackElement.textContent = "❌ Zła odpowiedź!";
+                feedbackElement.style.color = "red";
             }
+        
             document.getElementById("score").textContent = score;
-            loadQuestion();
+        
+            // Po 1,5 sekundy ukrywa komunikat i ładuje nowe pytanie
+            setTimeout(() => {
+                feedbackElement.textContent = "";
+                loadQuestion();
+            }, 1500);
         }
 
         function restartQuiz() {
