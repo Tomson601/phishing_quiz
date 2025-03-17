@@ -162,7 +162,7 @@
         function saveResults() {
             userData.score = score;
 
-            fetch("http://localhost:5000/save_result", {
+            fetch("https://tomson601.pythonanywhere.com/save_result", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -183,7 +183,7 @@
         }
 
         function fetchRanking() {
-            fetch("http://localhost:5000/get_top_players") // Endpoint Flask
+            fetch("https://tomson601.pythonanywhere.com/get_top_players") // Endpoint Flask
                 .then(response => response.json())
                 .then(data => {
                     const rankingList = document.getElementById("ranking-list");
