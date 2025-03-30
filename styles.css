@@ -17,17 +17,23 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 90%;
-    height: 30%;
-    max-width: 1700px;
+    max-width: 700px;
     text-align: center;
-    object-position: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+    margin-bottom: 20px;
 }
 
 h2 {
     color: #f0f6fc;
+}
+
+.input-box {
+    background-color: #0d1117;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 15px;
 }
 
 input {
@@ -37,10 +43,8 @@ input {
     padding: 8px;
     margin: 5px auto;
     border-radius: 6px;
-    width: 30%;
+    width: 100%;
     display: block;
-    text-align: left;
-
 }
 
 button {
@@ -61,36 +65,42 @@ button:hover {
     background-color: #2ea043;
 }
 
-.image-frame {
-    width: 520px;
-    height: 520px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.image-box {
+    width: 90%;
+    max-width: 550px;
     background-color: #161b22;
-    border: none;
-    padding: 10px;
-    margin: 0 auto;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 #quiz-image {
     width: 100%;
     height: auto;
     object-fit: contain;
-}
-
-img {
-    max-width: 100%;
-    max-height: 400px;
     border-radius: 5px;
 }
 
-@media (max-width: 600px) {
-    .image-frame {
-        max-width: 100%;
-    }
+.ranking-box {
+    background-color: #0d1117;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
 
-    #quiz-image {
-        max-height: 400px;
+ol {
+    padding-left: 0;
+    text-align: center;
+    list-style-position: inside;
+}
+
+@media (max-width: 600px) {
+    .container, .input-box, .image-box, .ranking-box {
+        width: 95%;
     }
 }
