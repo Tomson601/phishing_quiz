@@ -102,7 +102,7 @@ function restartQuiz() {
 function saveResults() {
     userData.score = score;
 
-    fetch(`${backendUrl}/save_result`, {
+    fetch(`${localhostUrl}/save_result`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -134,7 +134,7 @@ function returnToForm() {
 }
 
 function fetchRanking() {
-    fetch(`${backendUrl}/get_top_players`)
+    fetch(`${localhostUrl}/get_top_players`)
         .then((response) => response.json())
         .then((data) => {
             const rankingList = document.getElementById("ranking-list");
