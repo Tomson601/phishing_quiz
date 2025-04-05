@@ -8,18 +8,48 @@
         <link rel="icon" href="static/favicon.png" type="image/png" />
 
         <script type="text/javascript">
-            var appInsights = window.appInsights  function (config) {
-              function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
-              var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f;
-              for (s.src = config.url  "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; i.length;)
-                r("track" + i.pop());
-              return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("" + i), f = e[i], e[i] = function (config, r, u, e, o) {
-                var s = f && f(config, r, u, e, o);
-                return s !== !0 && t["" + i](config, r, u, e, o), s
-              }), t
-            }({
-              InstrumentationKey=178e9953-067c-4a71-90c4-09d87b750bb8;IngestionEndpoint=https://northeurope-2.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/;ApplicationId=2554da3d-15a7-4baf-9a92-a71a060db0ce
-            });
+            var appInsights =
+                window.appInsights ||
+                (function (config) {
+                    function r(config) {
+                        t[config] = function () {
+                            var i = arguments;
+                            t.queue.push(function () {
+                                t[config].apply(t, i);
+                            });
+                        };
+                    }
+                    var t = { config: config },
+                        u = document,
+                        e = window,
+                        o = "script",
+                        s = u.createElement(o),
+                        i,
+                        f;
+                    s.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js";
+                    u.getElementsByTagName(o)[0].parentNode.appendChild(s);
+                    t.cookie = u.cookie;
+                    t.queue = [];
+                    i = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"];
+                    while (i.length) r("track" + i.pop());
+                    r("setAuthenticatedUserContext");
+                    r("clearAuthenticatedUserContext");
+                    if (!config.disableExceptionTracking) {
+                        i = "onerror";
+                        r(i);
+                        f = e[i];
+                        e[i] = function (config, r, u, e, o) {
+                            var s = f && f(config, r, u, e, o);
+                            if (s !== true) t[i](config, r, u, e, o);
+                            return s;
+                        };
+                    }
+                    return t;
+                })({
+                    instrumentationKey: "178e9953-067c-4a71-90c4-09d87b750bb8",
+                    endpointUrl: "https://northeurope-2.in.applicationinsights.azure.com/"
+                    // Możesz dodać inne pola jak applicationId itd.
+                });
 
             window.appInsights = appInsights;
             appInsights.trackPageView();
