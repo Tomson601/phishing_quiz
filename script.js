@@ -21,11 +21,11 @@ const questions = [
     { text: "Czy jest to oszustwo?", image: "sites/booking_s.png", answer: true },
     { text: "Czy jest to oszustwo?", image: "sites/dhl_s.jpg", answer: true },
     { text: "Czy jest to oszustwo?", image: "sites/ipko_s.png", answer: true },
-    { text: "Czy jest to oszustwo?", image: "sites/mbank_s.png", answer: true },
-    { text: "Czy jest to oszustwo?", image: "sites/pko_s.png", answer: true },
-    { text: "Czy jest to oszustwo?", image: "sites/santander_s.png", answer: true },
+    { text: "Czy jest to oszustwo?", image: "sites/mbank_s.jpg", answer: true },
+    { text: "Czy jest to oszustwo?", image: "sites/pko_s.jpg", answer: true },
+    { text: "Czy jest to oszustwo?", image: "sites/santander_s.jpg", answer: true },
     { text: "Czy jest to oszustwo?", image: "sites/wallet_s.png", answer: true },
-    { text: "Czy jest to oszustwo?", image: "sites/warning_s.png", answer: true }
+    { text: "Czy jest to oszustwo?", image: "sites/warning.png", answer: true }
 ];
 
 function startQuiz() {
