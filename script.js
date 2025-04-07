@@ -160,7 +160,7 @@ function fetchRanking() {
 
             data.forEach((player) => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `${player.name} - ${player.score} pkt`;
+                listItem.textContent = `Gracz - ${player.score} pkt`;
                 rankingList.appendChild(listItem);
             });
         })
