@@ -39,6 +39,7 @@ function startQuiz() {
 
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("quiz-container").style.display = "block";
+    document.getElementById("ranking").style.display = "none";
     loadQuestion();
 }
 
@@ -50,6 +51,8 @@ function getRandomQuestion() {
     if (usedQuestions.length === questions.length) {
         document.getElementById("quiz-container").style.display = "none";
         document.getElementById("end-screen").style.display = "block";
+        document.getElementById("ranking").style.display = "block";
+        showPopup();
         document.getElementById("final-score").textContent = score;
         saveResults();
         return null;
@@ -137,7 +140,9 @@ function returnToForm() {
     usedQuestions = [];
     document.getElementById("score").textContent = score;
     document.getElementById("final-score").textContent = "0";
-
+    
+    document.getElementById("ranking").style.display = "block";
+    
     fetchRanking();
 }
 
@@ -169,4 +174,12 @@ function validateForm() {
         return false;
     }
     return true;
+}
+
+function showPopup() {
+  document.getElementById("quiz-popup").classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("quiz-popup").classList.add("hidden");
 }

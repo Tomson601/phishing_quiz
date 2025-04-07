@@ -6,54 +6,6 @@
         <title>Quiz phishingowy</title>
         <link rel="stylesheet" href="styles.css" />
         <link rel="icon" href="static/favicon.png" type="image/png" />
-
-        <script type="text/javascript">
-            var appInsights =
-                window.appInsights ||
-                (function (config) {
-                    function r(config) {
-                        t[config] = function () {
-                            var i = arguments;
-                            t.queue.push(function () {
-                                t[config].apply(t, i);
-                            });
-                        };
-                    }
-                    var t = { config: config },
-                        u = document,
-                        e = window,
-                        o = "script",
-                        s = u.createElement(o),
-                        i,
-                        f;
-                    s.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js";
-                    u.getElementsByTagName(o)[0].parentNode.appendChild(s);
-                    t.cookie = u.cookie;
-                    t.queue = [];
-                    i = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"];
-                    while (i.length) r("track" + i.pop());
-                    r("setAuthenticatedUserContext");
-                    r("clearAuthenticatedUserContext");
-                    if (!config.disableExceptionTracking) {
-                        i = "onerror";
-                        r(i);
-                        f = e[i];
-                        e[i] = function (config, r, u, e, o) {
-                            var s = f && f(config, r, u, e, o);
-                            if (s !== true) t[i](config, r, u, e, o);
-                            return s;
-                        };
-                    }
-                    return t;
-                })({
-                    instrumentationKey: "178e9953-067c-4a71-90c4-09d87b750bb8",
-                    endpointUrl: "https://northeurope-2.in.applicationinsights.azure.com/"
-                    // Możesz dodać inne pola jak applicationId itd.
-                });
-
-            window.appInsights = appInsights;
-            appInsights.trackPageView();
-        </script>
     </head>
     <body>
         <div class="container" id="start-screen">
@@ -89,6 +41,17 @@
             <h2>🏆 Ranking najlepszych graczy</h2>
             <ol id="ranking-list"></ol>
         </div>
+
+        <div id="quiz-popup" class="popup hidden">
+            <div class="popup-content">
+                <h2>Dziękujemy za udział w quizie!</h2>
+                <p>Quiz został opracowany na podstawie materiałów z:</p>
+                <p>https://cebrf.knf.gov.pl/</p>
+                <p>https://cert.pl/</p>
+                <button onclick="closePopup()">Zamknij</button>
+            </div>
+        </div>
+
         <script src="script.js"></script>
     </body>
 </html>
