@@ -2,7 +2,7 @@ let userData = {};
 let score = 0;
 let usedQuestions = [];
 const backendUrl = "https://tomson601.pythonanywhere.com";
-const localhostUrl = "http://kniupp.northeurope.cloudapp.azure.com:5000";
+const localhostUrl = "https://kniupp.pl:5000";
 
 const questions = [
     { text: "Czy jest to oszustwo?", image: "sites/allegro-fake.png", answer: true },
